@@ -1,0 +1,18 @@
+.ExchangeButton {
+    width: 120px;
+    height: 60px;
+    background-color: #142850;
+    box-shadow: 0px 4px 4px rgba(20, 40, 80, 0.25);
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 24px;
+    padding: 0px 12px;
+}
+.ExchangeButton:hover {
+    background-color: #27496d;
+    cursor: pointer;
+}
+.ExchangeButton:active {
+    box-shadow: none;
+}

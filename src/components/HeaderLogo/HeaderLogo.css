@@ -1,0 +1,18 @@
+.HeaderLogo {
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 250px;
+}
+.HeaderLogo__title {
+    font-weight: 400;
+    font-size: 36px;
+    width: 250px;
+}
+.HeaderLogo__subtitle {
+    font-weight: 300;
+    font-size: 24px;
+    width: 250px;
+}

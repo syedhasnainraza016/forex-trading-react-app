@@ -1,0 +1,32 @@
+.CryptoChartPeriodValue {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
+    padding-left: 20px;
+    position: relative;
+}
+.CryptoChartPeriodValue:hover {
+    cursor: pointer;
+}
+.CryptoChartPeriodValue:before {
+    position: absolute;
+    content: '';
+    background-color: #27496d;
+    top: 30px;
+    left: 17px;
+    width: 70%;
+    height: 1px;
+    display: none;
+}
+.CryptoChartPeriodValue:hover::before {
+    display: block;
+}
+.CryptoChartPeriodValue-active::after {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 17px;
+    width: 70%;
+    height: 1px;
+    background-color: #00a8cc;
+}

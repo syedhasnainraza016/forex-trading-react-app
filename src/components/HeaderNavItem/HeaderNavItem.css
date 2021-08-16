@@ -1,0 +1,29 @@
+.HeaderNavItem {
+    position: relative;
+    cursor: pointer;
+}
+.HeaderNavItem::before {
+    position: absolute;
+    content: '';
+    height: 3px;
+    width: 100%;
+    background-color: #27496d;
+    left: 0;
+    bottom: -8px;
+    display: none;
+}
+.HeaderNavItem:hover::before {
+    display: block;
+}
+.HeaderNavItem-active {
+    position: relative;
+}
+.HeaderNavItem-active::after {
+    position: absolute;
+    content: '';
+    height: 3px;
+    width: 100%;
+    background-color: #00a8cc;
+    left: 0;
+    bottom: -8px;
+}

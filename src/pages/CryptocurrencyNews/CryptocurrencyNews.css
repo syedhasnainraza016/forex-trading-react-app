@@ -1,0 +1,32 @@
+.CryptocurrencyNews__title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    color: #142850;
+    padding-top: 24px;
+    padding-bottom: 30px;
+}
+.CryptocurrencyNews__articles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.CryptocurrencyNews__paginationButton {
+    background-color: #142850;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 24px;
+    padding: 12px 24px;
+    border: none;
+    display: block;
+    margin: auto;
+    margin-bottom: 40px;
+    box-shadow: 0px 4px 4px rgba(20, 40, 80, 0.25);
+}
+.CryptocurrencyNews__paginationButton:hover {
+    background-color: #27496d;
+    cursor: pointer;
+}
+.CryptocurrencyNews__paginationButton:active {
+    box-shadow: none;
+}
