@@ -1,0 +1,12 @@
+.ArticleFull {
+    width: 90%;
+    margin: auto;
+    margin-top: 40px;
+    border-radius: 10px;
+    padding: 50px;
+    background-color: #142850;
+    color: #fff;
+}
+.ArticleFull_button {
+    cursor: pointer;
+}
