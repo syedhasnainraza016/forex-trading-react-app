@@ -20,6 +20,7 @@ const pages = [
   { name: "Coins Table", to: "/table" },
   { name: "Exchange Rates", to: "/rates" },
   { name: "Crypto News", to: "/news" },
+  { name: "Courses", to: "/courses" },
   { name: "Prediction", to: "/predict" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -55,8 +56,8 @@ const ResponsiveAppBar = () => {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
+          {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
+          {/* <Typography
             variant="h6"
             noWrap
             component="a"
@@ -72,7 +73,7 @@ const ResponsiveAppBar = () => {
             }}
           >
             LOGO
-          </Typography>
+          </Typography> */}
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -112,25 +113,24 @@ const ResponsiveAppBar = () => {
           </Box>
           <Grid container display="flex">
             <Grid item xs={6} md={4} lg={4}>
-              {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
-              <Typography
-                variant="h5"
-                noWrap
-                component="a"
-                href=""
+              <Button
+                onClick={() => navigate(`/admin/news`)}
                 sx={{
-                  mr: 2,
-                  display: { xs: "flex", md: "none" },
-                  flexGrow: 1,
-                  // fontFamily: "monospace",
-                  fontWeight: 700,
-                  letterSpacing: ".3rem",
-                  color: "inherit",
-                  textDecoration: "none",
+                  my: 2,
+                  color: "rgba(17, 33, 92, 1)",
+                  bgcolor: "white",
+                  display: "block",
+                  fontWeight: "bold",
+                  // fontFamily: "Port Lligat Sans",
+                  fontSize: { md: "16px" },
+                  fontWeight: 400,
+                  lineHeight: "21px",
+                  letterSpacing: "0em",
+                  textAlign: "center",
                 }}
               >
-                LOGO
-              </Typography>
+                Admin
+              </Button>
             </Grid>
             <Grid
               item
@@ -171,25 +171,6 @@ const ResponsiveAppBar = () => {
                     {page?.name}
                   </Button>
                 ))}
-
-                <Button
-                  onClick={() => navigate(`/admin/news`)}
-                  sx={{
-                    my: 2,
-                    color: "rgba(17, 33, 92, 1)",
-                    bgcolor: "white",
-                    display: "block",
-                    fontWeight: "bold",
-                    // fontFamily: "Port Lligat Sans",
-                    fontSize: { md: "16px" },
-                    fontWeight: 400,
-                    lineHeight: "21px",
-                    letterSpacing: "0em",
-                    textAlign: "center",
-                  }}
-                >
-                  Admin
-                </Button>
               </Box>
 
               <Box

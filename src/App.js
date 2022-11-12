@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import ExchangeRates from "./pages/ExchangeRates/ExchangeRates";
-import CryptocurrencyNews from "./pages/CryptocurrencyNews/CryptocurrencyNews";
-import Header from "./components/Header/Header";
 import Router from "./routes/index";
 // import { ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
@@ -17,9 +14,6 @@ Chart.defaults.scale.grid.borderWidth = 3;
 Chart.defaults.scale.grid.display = false;
 
 function App() {
-  // 0 - ExchangeRates, 1 - CryptocurrencyNews
-  const [mode, setMode] = useState(0);
-
   return (
     <div className="App">
       {/* <ToastContainer {...toastOptions} /> */}

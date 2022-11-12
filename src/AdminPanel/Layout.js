@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography";
 import { useNavigate, useLocation } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/material";
-// import userProfile from "../../../assets/images/userProfile.png";
+import userImg from "../assets/images/person.png";
 // import { toast } from "react-toastify";
 const drawerWidth = 240;
 
@@ -32,11 +32,10 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
   const Tabs = [
-    { title: "Email/Password", to: "/profile" },
-    { title: "My Purchases", to: "/my-purchases" },
-    { title: "My Bids", to: "/my-bids" },
-    { title: "Watching Bids", to: "/watching-bids" },
-    { title: "Payment Gateway", to: "/payment-gateways" },
+    { title: "Profile", to: "/profile" },
+    { title: "News", to: "/news" },
+    { title: "Courses", to: "/courses" },
+    { title: "All Users", to: "/users" },
   ];
 
   //   function Logout() {
@@ -56,9 +55,13 @@ function ResponsiveDrawer(props) {
           justifyContent: "center",
         }}
       >
-        {/* <Box>
-          <Box component="img" src={userImg}></Box>
-        </Box> */}
+        <Box>
+          <Box
+            component="img"
+            sx={{ width: "120px", height: "120px" }}
+            src={userImg}
+          ></Box>
+        </Box>
 
         <Button
           variant="contained"
@@ -67,7 +70,7 @@ function ResponsiveDrawer(props) {
             backgroundColor: "#FFB51342",
             color: "white",
             border: "2px solid #FFB501 ",
-            width: { xs: "50%", md: "10%" },
+            width: { xs: "50%", md: "120px" },
             "&:hover": {
               // transform: "scale(1.1)",
               bgcolor: "#FFB501",
@@ -75,17 +78,17 @@ function ResponsiveDrawer(props) {
             fontSize: 11,
           }}
         >
-          Admin
+          Admin Panel
         </Button>
       </Box>
       <List>
         {Tabs.map((tab, index) => (
           <ListItem
-            onClick={() => navigate(`/buyer${tab.to}`)}
+            onClick={() => navigate(`/admin${tab.to}`)}
             key={tab.title}
             disablePadding
             sx={{
-              px: location?.pathname === `/buyer${tab.to}` ? "30px" : "none",
+              px: location?.pathname === `/admin${tab.to}` ? "30px" : "none",
             }}
           >
             <ListItemButton>
@@ -94,10 +97,10 @@ function ResponsiveDrawer(props) {
                 fontFamily="Raleway, sans-serif"
                 sx={{
                   textAlign: "center",
-                  color: "#005371",
+                  color: "white",
                   fontWeight: 800,
                   borderBottom:
-                    location?.pathname === `/buyer${tab.to}`
+                    location?.pathname === `/admin${tab.to}`
                       ? "4px solid white"
                       : "none",
                 }}
@@ -185,7 +188,7 @@ function ResponsiveDrawer(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              background: " #7ad7ff !important",
+              background: " rgba(17, 33, 92, 1) !important",
             },
           }}
           open
@@ -195,7 +198,7 @@ function ResponsiveDrawer(props) {
       </Box>
       <Box
         sx={{
-          bgcolor: "#7ad7ff",
+          bgcolor: "rgba(17, 33, 92, 1)",
           position: "sticky",
           height: "100vh",
           width: "100%",
