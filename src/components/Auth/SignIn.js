@@ -12,7 +12,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import bgImg from "../../assets/images/img2.jpg";
+import bgImg from "../../assets/images/bg1.jpg";
 // import buyerBtn from "../../assets/images/buyerBtn.png";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-// import { AuthAPI } from "../../api";
+import { AuthAPI } from "../../api";
 function SignIn() {
   let Navigate = useNavigate();
   const [values, setValues] = React.useState({
@@ -53,24 +53,23 @@ function SignIn() {
   });
 
   const onSubmit = (values) => {
-    // alert(`Login ${JSON.stringify(values)}`);
-    // AuthAPI.login(values).then((res) => {
-    //   let response = res.data.data;
-    //   let user = {
-    //     access_token: response?.token,
-    //     id: response?.id,
-    //     email: response?.email,
-    //     role: response?.role,
-    //     name: response?.username,
-    //   };
-    //   localStorage.setItem("user", JSON.stringify(user));
-    //   if (response?.role === "buyer") {
-    //     Navigate("/buyer/profile");
-    //   }
-    //   if (response?.role === "admin") {
-    //     Navigate("/admin/add-product");
-    //   }
-    // });
+    AuthAPI.login(values).then((res) => {
+      let response = res.data.data;
+      let user = {
+        access_token: response?.token,
+        id: response?.user?._id,
+        email: response?.user?.email,
+        role: response?.user?.role,
+        name: response?.user?.username,
+      };
+      localStorage.setItem("user", JSON.stringify(user));
+      if (response?.user?.role === "user") {
+        Navigate("/user/home");
+      }
+      if (response?.user?.role === "admin") {
+        Navigate("/admin/news");
+      }
+    });
   };
 
   const formik = useFormik({
@@ -130,8 +129,8 @@ function SignIn() {
               component="form"
               sx={{
                 position: "relative",
-                // bgcolor: "rgba(61,197,255,0.88)",
-                bgcolor: "rgba(0,88,163,0.88)",
+                bgcolor: "rgba(3,4,6,0.75)",
+                // bgcolor: "rgba(0,88,163,0.88)",
                 width: { xs: "100%", md: "450px" },
                 height: { xs: "100%", md: "75vh" },
                 borderRadius: { xs: 0, md: "22px" },
@@ -160,7 +159,7 @@ function SignIn() {
                   height: "50px",
                   position: "absolute",
                   backgroundRepeat: "no-repeat",
-                  bgcolor: "rgba(61,197,255,0.88)",
+                  bgcolor: "rgba(17, 33, 92, 1)",
                   borderRadius: "14px",
                   color: "white",
                   backgroundSize: "cover",
@@ -345,7 +344,7 @@ function SignIn() {
                       borderRadius: "10px",
                       textTransform: "none",
                       height: "58px",
-                      backgroundColor: "#58E6FF",
+                      backgroundColor: "rgba(17, 33, 92, 1)",
                       color: "white",
                       width: { xs: "100%" },
                       "&:hover": {
@@ -354,8 +353,8 @@ function SignIn() {
                       },
                       fontSize: 20,
                     }}
-                    // onClick={formik.handleSubmit}
-                    onClick={() => Navigate("/user/home")}
+                    onClick={formik.handleSubmit}
+                    // onClick={() => Navigate("/user/home")}
                     type="submit"
                   >
                     Sign In

@@ -12,7 +12,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import bgImg from "../../assets/images/img1.jpg";
+import bgImg from "../../assets/images/bg1.jpg";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +20,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 // import axios from "axios";
-// import { AuthAPI, GenralAPI } from "../../api";
+import { AuthAPI } from "../../api";
 
 function SignUp() {
   let Navigate = useNavigate();
@@ -73,9 +73,10 @@ function SignUp() {
   });
 
   const onSubmit = (values) => {
-    // AuthAPI.register(values).then((res) => {
-    //   Navigate("/auth/signin");
-    // });
+    console.log("singup values", values);
+    AuthAPI.register(values).then((res) => {
+      Navigate("/auth/signin");
+    });
   };
 
   const formik = useFormik({
@@ -135,8 +136,8 @@ function SignUp() {
               component="form"
               sx={{
                 overflowY: "scroll",
-                // bgcolor: "rgba(61,197,255,0.88)",
-                bgcolor: "rgba(0,88,163,0.88)",
+                bgcolor: "rgba(3,4,6,0.75)",
+                // bgcolor: "rgba(0,88,163,0.88)",
                 width: { xs: "100%", md: "450px" },
                 height: { xs: "100%", md: "75vh" },
                 borderRadius: { xs: 0, md: "22px" },
@@ -443,7 +444,7 @@ function SignUp() {
                       borderRadius: "10px",
                       textTransform: "none",
                       height: "58px",
-                      backgroundColor: "#58E6FF",
+                      backgroundColor: "rgba(17, 33, 92, 1)",
                       color: "white",
                       width: { xs: "100%" },
                       "&:hover": {

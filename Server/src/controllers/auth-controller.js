@@ -1,6 +1,6 @@
 const BaseController = require("./base-controller");
-// const bcrypt = require("bcrypt");
-const User = require("../models/User");
+const bcrypt = require("bcrypt");
+const User = require("../models/Users");
 
 const saltRounds = 10;
 
@@ -17,11 +17,11 @@ class AuthController extends BaseController {
         let userDetail = await User.findOne({ email });
         let data = {
           user: userDetail,
-          token: this.generateToken({ _id: user._id, name: user.userName }),
+          token: this.generateToken({ _id: user._id, name: user.username }),
         };
-        res.successResponse({ data, message: "Login Successfully!" });
+        res.send({ data, message: "Login Successfully!" });
       } else {
-        res.errorResponse("Invalid User", 404);
+        res.error("Invalid User", 404);
       }
     } catch (e) {
       console.log(e);
@@ -33,41 +33,24 @@ class AuthController extends BaseController {
   async register(req, res) {
     try {
       console.log(req.body);
-      let {
-        f_name,
-        l_name,
-        userName,
-        password,
-        address,
-        countryCode,
-        email,
-        mobileNumber,
-        telNumber,
-        passportNumber,
-      } = req.body;
+      let { username, password, email } = req.body;
       if (!(await this.is_exists(User, { email }))) {
         const salt = bcrypt.genSaltSync(saltRounds);
         let data = {
-          f_name,
-          l_name,
-          userName,
+          username,
           password: bcrypt.hashSync(password, salt),
-          address,
-          countryCode,
           email,
-          mobileNumber,
-          telNumber,
-          passportNumber,
+          role: "user",
         };
 
         data = await this.create(User, data);
-        res.successResponse({ data, message: "User Register Successfully" });
+        res.status(200).send({ data, message: "User Register Successfully" });
       } else {
-        res.errorResponse("Email Already Exists", 409);
+        res.status(409).send("Email Already Exists");
       }
     } catch (e) {
       console.log(e);
-      res.errorResponse();
+      res.status(409).send("error");
     }
   }
 
