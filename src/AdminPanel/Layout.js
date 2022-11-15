@@ -130,7 +130,10 @@ function ResponsiveDrawer(props) {
             },
             fontSize: 11,
           }}
-          //   onClick={() => Logout()}
+          onClick={() => {
+            localStorage.removeItem("user");
+            navigate(`/auth/signin`);
+          }}
         >
           Logout
         </Button>

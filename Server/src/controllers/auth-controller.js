@@ -13,19 +13,22 @@ class AuthController extends BaseController {
     try {
       let { email, password } = req.body;
       let user = (await this.get(User, { email }))[0];
+      // console.log("user1", bcrypt.compareSync(password, user.password));
       if (user && bcrypt.compareSync(password, user.password)) {
         let userDetail = await User.findOne({ email });
+        // console.log("userDetail", userDetail);
+
         let data = {
           user: userDetail,
           token: this.generateToken({ _id: user._id, name: user.username }),
         };
-        res.send({ data, message: "Login Successfully!" });
+        res.status(200).send({ data, message: "Login Successfully!" });
       } else {
-        res.error("Invalid User", 404);
+        res.status(404).send("User not Exists");
       }
     } catch (e) {
       console.log(e);
-      res.errorResponse();
+      res.status(409).send("error");
     }
   }
 

@@ -114,7 +114,10 @@ const ResponsiveAppBar = () => {
           <Grid container display="flex">
             <Grid item xs={6} md={4} lg={4}>
               <Button
-                onClick={() => navigate(`/admin/news`)}
+                onClick={() => {
+                  localStorage.removeItem("user");
+                  navigate(`/auth/signin`);
+                }}
                 sx={{
                   my: 2,
                   color: "rgba(17, 33, 92, 1)",
@@ -129,7 +132,7 @@ const ResponsiveAppBar = () => {
                   textAlign: "center",
                 }}
               >
-                Admin
+                Logout
               </Button>
             </Grid>
             <Grid

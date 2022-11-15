@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 mongoose
-  .connect("mongodb://localhost/practiceDB")
+  .connect("mongodb://localhost/ForexDB")
   .then(() => console.log("Database Connected..."))
   .catch((err) => console.error("Could not connect to database", err));
 
