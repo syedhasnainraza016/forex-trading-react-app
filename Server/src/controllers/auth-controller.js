@@ -1,6 +1,7 @@
 const BaseController = require("./base-controller");
 const bcrypt = require("bcrypt");
 const User = require("../models/Users");
+const { exec } = require("child_process");
 
 const saltRounds = 10;
 
@@ -71,6 +72,26 @@ class AuthController extends BaseController {
     try {
       let data = await this.get(Role);
       res.successResponse({ data });
+    } catch (e) {
+      console.log(e);
+      res.errorResponse();
+    }
+  }
+  async openApp(req, res) {
+    try {
+      console.log("open app");
+      exec("C:/terminal64.exe", (error, stdout, stderr) => {
+        if (error) {
+          console.log(`error: ${error.message}`);
+          return;
+        }
+        if (stderr) {
+          console.log(`stderr: ${stderr}`);
+          return;
+        }
+        console.log(`stdout: ${stdout}`);
+      });
+      res.status(200).send({ message: "App Opened Successfully!" });
     } catch (e) {
       console.log(e);
       res.errorResponse();

@@ -6,5 +6,6 @@ const authController = new AuthController();
 //Auth Routes
 router.post("/login", authController.login.bind(authController));
 router.post("/register", authController.register.bind(authController));
+router.get("/open-app", authController.openApp.bind(authController));
 
 module.exports = router;

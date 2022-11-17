@@ -7,8 +7,13 @@ import Binance from "./Binance";
 import Binance2 from "./Binance2";
 import Banner from "./Banner";
 import Footer from "../Footer/Footer";
+import { AuthAPI } from "../../api";
 
 function Header() {
+  function OpenApp() {
+    AuthAPI.openApp().then((res) => console.log("app opened"));
+  }
+
   return (
     <Box mt={2}>
       <Grid
@@ -64,6 +69,7 @@ function Header() {
                 mt: 3,
                 ml: 1,
               }}
+              onClick={() => OpenApp()}
             >
               Open App
             </Button>
