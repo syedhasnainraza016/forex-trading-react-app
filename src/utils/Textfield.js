@@ -11,23 +11,25 @@ function TextInput({
   sx,
   disc,
   dislimit,
+  required,
   ...props
 }) {
   return (
     <TextField
+      required={required ? true : false}
       variant="outlined"
       size={size ? size : "small"}
       fullWidth
       id={name}
       name={name}
       label={label}
-      value={formik.values[name]}
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
+      value={formik?.values[name]}
+      onChange={formik?.handleChange}
+      onBlur={formik?.handleBlur}
       inputProps={{ maxLength: disc ? 500 : 350 }}
-      error={formik.touched[name] && Boolean(formik.errors[name])}
+      error={formik?.touched[name] && Boolean(formik?.errors[name])}
       helperText={
-        !noValidationText && formik.touched[name] && formik.errors[name]
+        !noValidationText && formik?.touched[name] && formik?.errors[name]
       }
       sx={{ my: 1, ...sx }}
       {...props}

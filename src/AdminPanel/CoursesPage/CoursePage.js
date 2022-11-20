@@ -2,21 +2,33 @@ import React, { useState, useEffect } from "react";
 import Table from "../../utils/Table";
 import Button from "../../utils/Button";
 import AddIcon from "@mui/icons-material/Add";
-import AddNewsModal from "./AddNewsModal";
-import { NewsAPI } from "../../api";
+import AddCourseModal from "./AddCourseModal";
+import { CourseAPI } from "../../api";
 import { Avatar, Typography, Box } from "@mui/material";
-function NewsPage() {
+function CoursePage() {
   const [data, setData] = useState([]);
   const [createDialog, setCreateDialog] = useState(false);
   useEffect(() => {
-    NewsAPI.allNews().then((res) => setData(res.data.data));
+    CourseAPI.allCourse().then((res) => setData(res?.data?.data));
   }, [createDialog]);
   const columns = [
     { Header: "Sr #", accessor: "_id" },
 
     {
-      Header: "News",
+      Header: "Title",
       accessor: "title",
+    },
+    {
+      Header: "Price",
+      accessor: "price",
+    },
+    {
+      Header: "Duration",
+      accessor: "duration",
+    },
+    {
+      Header: "Code",
+      accessor: "code",
     },
     {
       Header: "Description",
@@ -40,9 +52,9 @@ function NewsPage() {
     },
   ];
 
-  const deleteNews = (id) => {
-    NewsAPI.deleteNews({ id: id }).then(() => {
-      NewsAPI.allNews().then((res) => setData(res.data.data));
+  const deleteCourse = (id) => {
+    CourseAPI.deleteCourse({ id: id }).then(() => {
+      CourseAPI.allCourse().then((res) => setData(res.data.data));
     });
   };
   return (
@@ -53,13 +65,13 @@ function NewsPage() {
             bgcolor: "#FFB51342",
             border: "2px solid #FFB501",
           }}
-          title="Add News"
+          title="Add Course"
           EndIcon={AddIcon}
           onClick={() => setCreateDialog(true)}
         />
       </Box>
-      <Table columns={columns} data={data} remove={deleteNews} />
-      <AddNewsModal
+      <Table columns={columns} data={data} remove={deleteCourse} />
+      <AddCourseModal
         onClose={() => setCreateDialog(false)}
         open={createDialog}
         afterSubmit={() => console.log("ok")}
@@ -68,4 +80,4 @@ function NewsPage() {
   );
 }
 
-export default NewsPage;
+export default CoursePage;

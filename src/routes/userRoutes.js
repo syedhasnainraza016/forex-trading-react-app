@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar/Navbar";
 import Loader from "../utils/Loader";
 import Coins from "../components/CoinsTable/Coins";
 import Coin from "../pages/CoinsTable/Coin";
+import Course from "../components/Courses/Courses";
 import axios from "axios";
 
 function AdminRoutes() {
@@ -32,6 +33,7 @@ function AdminRoutes() {
         <Route exact path="/rates" element={<ExchangeRates />} />
         <Route exact path="/news" element={<CryptocurrencyNews />} />
         <Route exact path="/home" element={<Home />} />
+        <Route exact path="/courses" element={<Course />} />
         <Route exact path="/table" element={<Coins coins={coins} />} />
         <Route exact path="/coin" element={<Coin />}>
           <Route exact path=":coinId" element={<Coin />} />

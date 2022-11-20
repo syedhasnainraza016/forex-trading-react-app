@@ -61,10 +61,10 @@ class AuthController extends BaseController {
   async getUsers(req, res) {
     try {
       let data = await this.get(User);
-      res.successResponse({ data });
+      res.status(200).send({ data });
     } catch (e) {
       console.log(e);
-      res.errorResponse();
+      res.status(200).send();
     }
   }
 

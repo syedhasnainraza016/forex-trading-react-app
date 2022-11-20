@@ -8,8 +8,10 @@ import Binance2 from "./Binance2";
 import Banner from "./Banner";
 import Footer from "../Footer/Footer";
 import { AuthAPI } from "../../api";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  let navigate = useNavigate();
   function OpenApp() {
     AuthAPI.openApp().then((res) => console.log("app opened"));
   }
@@ -51,8 +53,9 @@ function Header() {
                 borderRadius: "20px",
                 backgroundColor: "#14964f",
               }}
+              onClick={() => navigate("/auth/signin")}
             >
-              OPEN AN ACCOUNT
+              Login Now
             </Button>
             <Button
               variant="contained"

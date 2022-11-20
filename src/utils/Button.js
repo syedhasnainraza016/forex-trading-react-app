@@ -16,8 +16,8 @@ export default function BasicButton({
           mr: 1,
           border: "1px solid #000",
           "&:hover": {
-            backgroundColor: "transparent",
-            color: "#000",
+            backgroundColor: "blue",
+            color: "#fff",
           },
           ...sx,
         }}

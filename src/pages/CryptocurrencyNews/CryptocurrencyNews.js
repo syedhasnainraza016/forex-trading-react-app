@@ -66,7 +66,7 @@ export default function CryptocurrencyNews() {
   )
     .then((res) => res.json())
     .then((data) => {
-      setNewsData(data.articles);
+      setNewsData(data?.articles);
       console.log(data);
     });
 
@@ -81,13 +81,13 @@ export default function CryptocurrencyNews() {
   return (
     <div className="CryptocurrencyNews">
       <Box>
-        <Grid container px={4} pt={5} sx={{ backgroundColor: "#12225C" }}>
-          <Grid item ml={18} mt={4}>
-            <Typography variant="h3" color="white" py={5}>
+        <Grid container px={4} py={5} sx={{ backgroundColor: "#12225C" }}>
+          <Grid item xs={12} ml={18} mt={4}>
+            <Typography variant="h3" textAlign="center" color="white" py={5}>
               Latest News From Admin
             </Typography>
           </Grid>
-          {data.length > 0 &&
+          {data?.length > 0 &&
             data?.map((item, index) => {
               return index + (1 % 2) == 0 ? (
                 <Grid item xs={12} md={4} mt={5}>
@@ -96,7 +96,7 @@ export default function CryptocurrencyNews() {
                       borderRadius: "20px",
                       backgroundColor: "#fafafa",
                       width: "400px",
-                      height: "600px",
+                      height: "400px",
                     }}
                     position="relative"
                   >
@@ -104,11 +104,11 @@ export default function CryptocurrencyNews() {
                       component="img"
                       src={`http://localhost:4000/uploads/images/${item?.image}`}
                       sx={{
-                        height: "300px",
+                        height: "200px",
                         width: "400px",
                         // mx: 1,
                         cursor: "pointer",
-                        position: "absolute",
+                        // position: "absolute",
                         top: 0,
                       }}
                     ></Box>
@@ -129,7 +129,7 @@ export default function CryptocurrencyNews() {
                         variant="h7"
                         color="black"
                         textAlign="center"
-                        sx={{ mt: 5 }}
+                        // sx={{ mt: 5 }}
                       >
                         {item?.description}
                       </Typography>
@@ -150,7 +150,7 @@ export default function CryptocurrencyNews() {
                       borderRadius: "20px",
                       backgroundColor: "#fafafa",
                       width: "400px",
-                      height: "600px",
+                      height: "450px",
                     }}
                     position="relative"
                   >
@@ -188,7 +188,7 @@ export default function CryptocurrencyNews() {
                       component="img"
                       src={`http://localhost:4000/uploads/images/${item?.image}`}
                       sx={{
-                        height: "300px",
+                        height: "200px",
                         width: "400px",
                         // mx: 1,
                         cursor: "pointer",
@@ -202,37 +202,41 @@ export default function CryptocurrencyNews() {
             })}
         </Grid>
       </Box>
-
-      {!selectedArticle ? (
-        <>
-          <p className="CryptocurrencyNews__title">
-            Latest opinions of experts and journalists on cryptocurrency.
-          </p>
-          <div className="CryptocurrencyNews__articles">
-            {newsData &&
-              newsData
-                .slice(0, visible)
-                .map((news, i) => (
-                  <Article
-                    key={i}
-                    news={news}
-                    setSelectedArticle={setSelectedArticle}
-                  />
-                ))}
-          </div>
-          <button
-            className="CryptocurrencyNews__paginationButton"
-            onClick={() => loadMoreArticles()}
-          >
-            Load more
-          </button>
-        </>
-      ) : (
-        <ArticleFull
-          selectedArticle={selectedArticle}
-          setSelectedArticle={setSelectedArticle}
-        />
-      )}
+      <Box px={20}>
+        {!selectedArticle ? (
+          <>
+            <p
+              style={{ textAlign: "center" }}
+              className="CryptocurrencyNews__title"
+            >
+              Latest opinions of experts and journalists on cryptocurrency.
+            </p>
+            <div className="CryptocurrencyNews__articles">
+              {newsData &&
+                newsData
+                  .slice(0, visible)
+                  .map((news, i) => (
+                    <Article
+                      key={i}
+                      news={news}
+                      setSelectedArticle={setSelectedArticle}
+                    />
+                  ))}
+            </div>
+            <button
+              className="CryptocurrencyNews__paginationButton"
+              onClick={() => loadMoreArticles()}
+            >
+              Load more
+            </button>
+          </>
+        ) : (
+          <ArticleFull
+            selectedArticle={selectedArticle}
+            setSelectedArticle={setSelectedArticle}
+          />
+        )}
+      </Box>
     </div>
   );
 }

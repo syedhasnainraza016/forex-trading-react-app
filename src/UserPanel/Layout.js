@@ -32,10 +32,10 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
   const Tabs = [
-    { title: "Profile", to: "/profile" },
-    { title: "News", to: "/news" },
-    { title: "Courses", to: "/course" },
-    { title: "All Users", to: "/users" },
+    { title: "My Courses", to: "/buyer/my-courses" },
+    { title: "Profile", to: "/buyer/my-profile" },
+    { title: "Settings", to: "/buyer/my-setting" },
+    { title: "Home", to: "/user/home" },
   ];
 
   //   function Logout() {
@@ -78,17 +78,17 @@ function ResponsiveDrawer(props) {
             fontSize: 11,
           }}
         >
-          Admin Panel
+          User Panel
         </Button>
       </Box>
       <List>
         {Tabs.map((tab, index) => (
           <ListItem
-            onClick={() => navigate(`/admin${tab.to}`)}
+            onClick={() => navigate(`${tab.to}`)}
             key={tab.title}
             disablePadding
             sx={{
-              px: location?.pathname === `/admin${tab.to}` ? "30px" : "none",
+              px: location?.pathname === `${tab.to}` ? "30px" : "none",
             }}
           >
             <ListItemButton>
@@ -100,7 +100,7 @@ function ResponsiveDrawer(props) {
                   color: "white",
                   fontWeight: 800,
                   borderBottom:
-                    location?.pathname === `/admin${tab.to}`
+                    location?.pathname === `${tab.to}`
                       ? "4px solid white"
                       : "none",
                 }}

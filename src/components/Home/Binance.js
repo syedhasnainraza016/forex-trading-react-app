@@ -170,7 +170,14 @@ function Binance() {
           </Grid>
         </Card>
       </Grid>
-      <Box sx={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "flex-end",
+          pb: 5,
+        }}
+      >
         <Button
           sx={{
             color: "white",

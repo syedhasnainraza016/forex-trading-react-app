@@ -7,8 +7,11 @@ class Routes {
   register(data) {
     return axios.post(`/auth/register`, data);
   }
-  openApp(data) {
+  openApp() {
     return axios.get(`/auth/open-app`);
+  }
+  getusers() {
+    return axios.get(`/auth/all-users`);
   }
 }
 

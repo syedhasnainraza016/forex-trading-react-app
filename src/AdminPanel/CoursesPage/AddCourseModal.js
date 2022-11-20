@@ -5,20 +5,26 @@ import * as Yup from "yup";
 import { Box, Typography } from "@mui/material";
 import FileInput from "../../utils/FileUpload";
 import TextInput from "../../utils/Textfield";
-import { NewsAPI } from "../../api";
+import { CourseAPI } from "../../api";
 
 const initialValues = {
   title: "",
-  image: "",
   description: "",
+  price: "",
+  duration: "",
+  code: "",
+  image: "",
 };
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
   description: Yup.mixed().required("Please provide description."),
+  price: Yup.mixed().required("Please provide price."),
+  duration: Yup.mixed().required("Please provide duration."),
+  code: Yup.mixed().required("Please provide code."),
 });
 
-function AddModal({ open, onClose, afterSubmit }) {
+function AddeModal({ open, onClose, afterSubmit }) {
   const [isActive, setActive] = useState(false);
   const [imagesArr, setImagesArr] = useState(null);
 
@@ -34,19 +40,21 @@ function AddModal({ open, onClose, afterSubmit }) {
 
   function onSubmit(values) {
     setActive(true);
-    console.log("news imagesArr", imagesArr);
     const formData = new FormData();
     formData.append("title", values.title);
     formData.append("image", imagesArr);
     formData.append("description", values.description);
-    NewsAPI.addNews(formData).then((res) => console.log("created"));
+    formData.append("price", values.price);
+    formData.append("code", values.code);
+    formData.append("duration", values.duration);
+    CourseAPI.addCourse(formData).then((res) => console.log("created"));
     onClose();
   }
 
   return (
     <>
       <BasicModal
-        title="Add News"
+        title="Add Course"
         open={open}
         // onClose={onClose}
         onClose={() => {
@@ -59,7 +67,10 @@ function AddModal({ open, onClose, afterSubmit }) {
         active={isActive}
       >
         <Box component="form" onSubmit={formik.handleSubmit}>
-          <TextInput formik={formik} name="title" label="Title" />
+          <TextInput formik={formik} name="title" label="Couse Title" />
+          <TextInput formik={formik} name="price" label="Course Price" />
+          <TextInput formik={formik} name="duration" label="Course Duration" />
+          <TextInput formik={formik} name="code" label="Course Code" />
 
           <TextInput
             formik={formik}
@@ -78,4 +89,4 @@ function AddModal({ open, onClose, afterSubmit }) {
   );
 }
 
-export default AddModal;
+export default AddeModal;

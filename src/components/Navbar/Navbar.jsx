@@ -23,7 +23,7 @@ const pages = [
   { name: "Courses", to: "/courses" },
   { name: "Prediction", to: "/predict" },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Dashboard"];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -35,6 +35,7 @@ const ResponsiveAppBar = () => {
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
+    navigate("/buyer/my-courses");
   };
 
   const handleCloseNavMenu = () => {
@@ -113,27 +114,29 @@ const ResponsiveAppBar = () => {
           </Box>
           <Grid container display="flex">
             <Grid item xs={6} md={4} lg={4}>
-              <Button
-                onClick={() => {
-                  localStorage.removeItem("user");
-                  navigate(`/auth/signin`);
-                }}
-                sx={{
-                  my: 2,
-                  color: "rgba(17, 33, 92, 1)",
-                  bgcolor: "white",
-                  display: "block",
-                  fontWeight: "bold",
-                  // fontFamily: "Port Lligat Sans",
-                  fontSize: { md: "16px" },
-                  fontWeight: 400,
-                  lineHeight: "21px",
-                  letterSpacing: "0em",
-                  textAlign: "center",
-                }}
-              >
-                Logout
-              </Button>
+              {JSON.parse(localStorage.getItem("user"))?.role && (
+                <Button
+                  onClick={() => {
+                    localStorage.removeItem("user");
+                    navigate(`/auth/signin`);
+                  }}
+                  sx={{
+                    my: 2,
+                    color: "rgba(17, 33, 92, 1)",
+                    bgcolor: "white",
+                    display: "block",
+                    fontWeight: "bold",
+                    // fontFamily: "Port Lligat Sans",
+                    fontSize: { md: "16px" },
+                    fontWeight: 400,
+                    lineHeight: "21px",
+                    letterSpacing: "0em",
+                    textAlign: "center",
+                  }}
+                >
+                  Logout
+                </Button>
+              )}
             </Grid>
             <Grid
               item
@@ -176,50 +179,52 @@ const ResponsiveAppBar = () => {
                 ))}
               </Box>
 
-              <Box
-                sx={{
-                  flexGrow: 0,
-                  display: "flex",
-                  justifyContent: { xs: "flex-end", md: "center" },
-                }}
-              >
-                <Tooltip title="Open settings">
-                  <IconButton
-                    onClick={handleOpenUserMenu}
-                    sx={{ p: 0, mx: { xs: 0, md: 2 } }}
-                  >
-                    <AccountCircleSharpIcon
-                      sx={{ fontSize: { xs: 30, md: 40 }, color: "white" }}
-                    />
-                    {/* <Avatar
+              {JSON.parse(localStorage.getItem("user"))?.role && (
+                <Box
+                  sx={{
+                    flexGrow: 0,
+                    display: "flex",
+                    justifyContent: { xs: "flex-end", md: "center" },
+                  }}
+                >
+                  <Tooltip title="Open settings">
+                    <IconButton
+                      onClick={handleOpenUserMenu}
+                      sx={{ p: 0, mx: { xs: 0, md: 2 } }}
+                    >
+                      <AccountCircleSharpIcon
+                        sx={{ fontSize: { xs: 30, md: 40 }, color: "white" }}
+                      />
+                      {/* <Avatar
                       alt="Remy Sharp"
                       src="/static/images/avatar/2.jpg"
                     /> */}
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: "45px" }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">{setting}</Typography>
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box>
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {settings.map((setting) => (
+                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">{setting}</Typography>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Box>
+              )}
             </Grid>
           </Grid>
         </Toolbar>
