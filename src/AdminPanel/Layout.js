@@ -32,7 +32,7 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
   const Tabs = [
-    { title: "Profile", to: "/profile" },
+    { title: "Articles", to: "/article" },
     { title: "News", to: "/news" },
     { title: "Courses", to: "/course" },
     { title: "All Users", to: "/users" },

@@ -21,6 +21,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthAPI } from "../../api";
+import Swal from "sweetalert2";
+
 function SignIn() {
   let Navigate = useNavigate();
   const [values, setValues] = React.useState({
@@ -64,10 +66,32 @@ function SignIn() {
       };
       localStorage.setItem("user", JSON.stringify(user));
       if (response?.user?.role === "user") {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Login Successfully",
+          showConfirmButton: false,
+          timer: 3500,
+        });
+
         Navigate("/user/home");
-      }
-      if (response?.user?.role === "admin") {
+      } else if (response?.user?.role === "admin") {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Login Successfully",
+          showConfirmButton: false,
+          timer: 3500,
+        });
         Navigate("/admin/news");
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Invalid User",
+          showConfirmButton: false,
+          timer: 3500,
+        });
       }
     });
   };

@@ -1,43 +1,40 @@
-const News = require("../models/News");
-const { fileUpload, fileDelete } = require("../utils/FileOperations");
+const Article = require("../models/Article");
 const { Configuration, OpenAIApi } = require("openai");
 
-const addNews = async (req, res) => {
+const addArticle = async (req, res) => {
   try {
     let { title, description } = req.body;
-    filename = fileUpload(req.files.image, "./uploads/images/");
 
-    let newNews = new News({
+    let newArticle = new Article({
       title: title,
-      image: filename,
       description: description,
     });
 
     // Save information
-    const saveNews = await newNews.save();
-    if (saveNews)
+    const saveArticle = await newArticle.save();
+    if (saveArticle)
       return res.status(201).json({
         status: true,
-        message: "News Uploaded Successfully.",
+        message: "Article Uploaded Successfully.",
       });
   } catch (e) {
     console.log(e);
     res.errorResponse();
   }
 };
-const getallNews = async (req, res, next) => {
+const getallArticle = async (req, res, next) => {
   try {
-    const news = await News.find().exec();
-    if (!news) {
+    const article = await Article.find().exec();
+    if (!article) {
       return res.status(404).json({
         status: false,
-        message: "No news found",
+        message: "No Article found",
       });
     }
     return res.status(201).json({
       status: true,
-      message: "News found",
-      data: news,
+      message: "Article found",
+      data: article,
     });
   } catch (error) {
     if (error) {
@@ -46,18 +43,14 @@ const getallNews = async (req, res, next) => {
     }
   }
 };
-const deleteNews = async (req, res, next) => {
+const deleteArticle = async (req, res, next) => {
   try {
     const { id } = req.body;
-    const news = await News.findByIdAndDelete({ _id: id }).exec();
-
-    if (news?.image) {
-      await fileDelete("./uploads/images/", news?.image);
-    }
+    const article = await Article.findByIdAndDelete({ _id: id }).exec();
 
     return res.status(201).json({
       status: true,
-      message: "News Deleted Successfully.",
+      message: "Article Deleted Successfully.",
     });
   } catch (error) {
     if (error) {
@@ -66,6 +59,31 @@ const deleteNews = async (req, res, next) => {
     }
   }
 };
+
+const editArticle = async (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Data to update can not be empty!",
+    });
+  }
+
+  const id = req.params.id;
+
+  Article.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update Article with id=${id}. Maybe Article was not found!`,
+        });
+      } else res.send({ message: "Article was updated successfully." });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating Article with id=" + id,
+      });
+    });
+};
+
 const predictNews = async (req, res, next) => {
   try {
     const configuration = new Configuration({
@@ -91,12 +109,6 @@ const predictNews = async (req, res, next) => {
     let chos = response.data.choices[0].text;
 
     return res.status(200).send({ data: chos });
-
-    // return res.status(201).json({
-    //   status: true,
-    //   message: "News found",
-    //   data: response.choices,
-    // });
   } catch (error) {
     if (error) {
       console.log(error);
@@ -106,8 +118,9 @@ const predictNews = async (req, res, next) => {
 };
 
 module.exports = {
-  addNews,
-  getallNews,
-  deleteNews,
+  addArticle,
+  getallArticle,
+  deleteArticle,
+  editArticle,
   predictNews,
 };

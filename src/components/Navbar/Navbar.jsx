@@ -114,7 +114,7 @@ const ResponsiveAppBar = () => {
           </Box>
           <Grid container display="flex">
             <Grid item xs={6} md={4} lg={4}>
-              {JSON.parse(localStorage.getItem("user"))?.role && (
+              {JSON.parse(localStorage.getItem("user"))?.role ? (
                 <Button
                   onClick={() => {
                     localStorage.removeItem("user");
@@ -132,9 +132,38 @@ const ResponsiveAppBar = () => {
                     lineHeight: "21px",
                     letterSpacing: "0em",
                     textAlign: "center",
+                    "&:hover": {
+                      bgcolor: "red",
+                      color: "white",
+                    },
                   }}
                 >
                   Logout
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    navigate(`/auth/signin`);
+                  }}
+                  sx={{
+                    my: 2,
+                    color: "rgba(17, 33, 92, 1)",
+                    bgcolor: "white",
+                    display: "block",
+                    fontWeight: "bold",
+                    // fontFamily: "Port Lligat Sans",
+                    fontSize: { md: "16px" },
+                    fontWeight: 400,
+                    lineHeight: "21px",
+                    letterSpacing: "0em",
+                    textAlign: "center",
+                    "&:hover": {
+                      bgcolor: "red",
+                      color: "white",
+                    },
+                  }}
+                >
+                  Login
                 </Button>
               )}
             </Grid>

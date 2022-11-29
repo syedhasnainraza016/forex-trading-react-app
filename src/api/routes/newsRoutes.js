@@ -10,6 +10,9 @@ class Routes {
   deleteNews(id) {
     return axios.post(`/news/delete`, id);
   }
+  newsPrediction() {
+    return axios.get(`/news/predict`);
+  }
 }
 
 export default new Routes();

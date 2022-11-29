@@ -25,7 +25,7 @@ class AuthController extends BaseController {
         };
         res.status(200).send({ data, message: "Login Successfully!" });
       } else {
-        res.status(404).send("User not Exists");
+        res.status(201).send("User not Exists");
       }
     } catch (e) {
       console.log(e);

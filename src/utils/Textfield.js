@@ -26,7 +26,7 @@ function TextInput({
       value={formik?.values[name]}
       onChange={formik?.handleChange}
       onBlur={formik?.handleBlur}
-      inputProps={{ maxLength: disc ? 500 : 350 }}
+      inputProps={{ maxLength: disc ? 3000 : 3000 }}
       error={formik?.touched[name] && Boolean(formik?.errors[name])}
       helperText={
         !noValidationText && formik?.touched[name] && formik?.errors[name]

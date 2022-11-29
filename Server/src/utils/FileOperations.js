@@ -1,3 +1,5 @@
+var fs = require("fs");
+
 const fileUpload = (file, uploadPath) => {
   const extension = file.name.split(".")[1];
   const filename = "image_" + Date.now() + "." + extension;

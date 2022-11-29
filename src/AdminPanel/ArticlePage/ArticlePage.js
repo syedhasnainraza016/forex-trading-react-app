@@ -2,47 +2,32 @@ import React, { useState, useEffect } from "react";
 import Table from "../../utils/Table";
 import Button from "../../utils/Button";
 import AddIcon from "@mui/icons-material/Add";
-import AddNewsModal from "./AddNewsModal";
-import { NewsAPI } from "../../api";
+import AddArticleModal from "./AddArticleModal";
+import { ArticleAPI } from "../../api";
 import { Avatar, Typography, Box } from "@mui/material";
-function NewsPage() {
+function ArticlePage() {
   const [data, setData] = useState([]);
+  const [editId, setEditId] = useState(null);
   const [createDialog, setCreateDialog] = useState(false);
   useEffect(() => {
-    NewsAPI.allNews().then((res) => setData(res.data.data));
+    ArticleAPI.allArticle().then((res) => setData(res.data.data));
   }, [createDialog]);
   const columns = [
     { Header: "Sr #", accessor: "_id" },
 
     {
-      Header: "News",
+      Header: "Article Title",
       accessor: "title",
     },
     {
-      Header: "Description",
+      Header: "Article Description",
       accessor: "description",
-    },
-    {
-      Header: "Image",
-      accessor: "image",
-      Cell: ({ value }) =>
-        value ? (
-          <Avatar
-            variant="rounded"
-            alt="car"
-            src={`http://localhost:4000/uploads/images/${value}`}
-          />
-        ) : (
-          <Typography variant="body1" color="red">
-            No Image
-          </Typography>
-        ),
     },
   ];
 
-  const deleteNews = (id) => {
-    NewsAPI.deleteNews({ id: id }).then(() => {
-      NewsAPI.allNews().then((res) => setData(res.data.data));
+  const deleteArticle = (id) => {
+    ArticleAPI.deleteArticle({ id: id }).then(() => {
+      ArticleAPI.allArticle().then((res) => setData(res.data.data));
     });
   };
 
@@ -54,13 +39,21 @@ function NewsPage() {
             bgcolor: "#FFB51342",
             border: "2px solid #FFB501",
           }}
-          title="Add News"
+          title="Add Article"
           EndIcon={AddIcon}
           onClick={() => setCreateDialog(true)}
         />
       </Box>
-      <Table columns={columns} data={data} remove={deleteNews} />
-      <AddNewsModal
+      <Table
+        columns={columns}
+        data={data}
+        edit={(id) => {
+          setEditId(id);
+          setCreateDialog(true);
+        }}
+        remove={deleteArticle}
+      />
+      <AddArticleModal
         onClose={() => setCreateDialog(false)}
         open={createDialog}
         afterSubmit={() => console.log("ok")}
@@ -69,4 +62,4 @@ function NewsPage() {
   );
 }
 
-export default NewsPage;
+export default ArticlePage;

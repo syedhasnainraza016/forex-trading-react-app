@@ -58,17 +58,22 @@ export default function CryptocurrencyNews() {
   ];
   const [newsData, setNewsData] = useState(sampleData);
   const [data, setData] = useState([]);
+  const [newsPredicted, setnewsPredicted] = useState(null);
   useEffect(() => {
     NewsAPI.allNews().then((res) => setData(res.data.data));
+    NewsAPI.newsPrediction().then((res) =>
+      // console.log("newsPrediction", res?.data?.data)
+      setnewsPredicted(res?.data?.data)
+    );
+    fetch(
+      "https://newsapi.org/v2/everything?q=cryptocurrency&sortBy=popularity&apiKey=eac972808180447da763b302e9a2a9a8"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setNewsData(data?.articles);
+        console.log(data);
+      });
   }, []);
-  fetch(
-    "https://newsapi.org/v2/everything?q=cryptocurrency&sortBy=popularity&apiKey=eac972808180447da763b302e9a2a9a8"
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      setNewsData(data?.articles);
-      console.log(data);
-    });
 
   /* Pagination */
   const [visible, setVisible] = useState(4);
@@ -80,10 +85,21 @@ export default function CryptocurrencyNews() {
   const [selectedArticle, setSelectedArticle] = useState(null);
   return (
     <div className="CryptocurrencyNews">
+      {/* <Box px={4} py={5} sx={{ backgroundColor: "#12225C" }}>
+        <Typography variant="h5" textAlign="center" color="white" py={5}>
+          {newsPredicted && newsPredicted}
+        </Typography>
+      </Box> */}
       <Box>
         <Grid container px={4} py={5} sx={{ backgroundColor: "#12225C" }}>
           <Grid item xs={12} ml={18} mt={4}>
-            <Typography variant="h3" textAlign="center" color="white" py={5}>
+            <Typography
+              variant="h3"
+              textAlign="center"
+              color="white"
+              fontWeight="bold"
+              py={5}
+            >
               Latest News From Admin
             </Typography>
           </Grid>
@@ -96,7 +112,7 @@ export default function CryptocurrencyNews() {
                       borderRadius: "20px",
                       backgroundColor: "#fafafa",
                       width: "400px",
-                      height: "400px",
+                      height: "200px",
                     }}
                     position="relative"
                   >
@@ -190,7 +206,7 @@ export default function CryptocurrencyNews() {
                       sx={{
                         height: "200px",
                         width: "400px",
-                        // mx: 1,
+                        mt: 1,
                         cursor: "pointer",
                         position: "absolute",
                         bottom: 0,
