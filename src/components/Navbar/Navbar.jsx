@@ -35,7 +35,12 @@ const ResponsiveAppBar = () => {
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-    navigate("/buyer/my-courses");
+    if (JSON.parse(localStorage.getItem("user"))?.role == "admin") {
+      navigate("/admin/article");
+    }
+    if (JSON.parse(localStorage.getItem("user"))?.role == "user") {
+      navigate("/buyer/my-courses");
+    }
   };
 
   const handleCloseNavMenu = () => {

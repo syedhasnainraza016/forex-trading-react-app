@@ -69,6 +69,27 @@ const deleteCourse = async (req, res, next) => {
     }
   }
 };
+const editCourse = async (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Data to update can not be empty!",
+    });
+  }
+  const id = req.params.id;
+  Course.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update Course with id=${id}. Maybe Course was not found!`,
+        });
+      } else res.send({ message: "Course was updated successfully." });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating News with id=" + id,
+      });
+    });
+};
 
 //buyers
 const buyCourse = async (req, res) => {
@@ -124,4 +145,5 @@ module.exports = {
   deleteCourse,
   buyCourse,
   getbuyerCourse,
+  editCourse,
 };

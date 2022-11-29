@@ -3,13 +3,17 @@ import Table from "../../utils/Table";
 import Button from "../../utils/Button";
 import AddIcon from "@mui/icons-material/Add";
 import AddNewsModal from "./AddNewsModal";
+import EditNewsModal from "./EditNewsModal";
 import { NewsAPI } from "../../api";
 import { Avatar, Typography, Box } from "@mui/material";
 function NewsPage() {
   const [data, setData] = useState([]);
   const [createDialog, setCreateDialog] = useState(false);
+  const [editId, setEditId] = useState(null);
+  const [editDialog, setEditDialog] = useState(false);
+
   useEffect(() => {
-    NewsAPI.allNews().then((res) => setData(res.data.data));
+    NewsAPI.allNews().then((res) => setData(res?.data?.data));
   }, [createDialog]);
   const columns = [
     { Header: "Sr #", accessor: "_id" },
@@ -59,11 +63,27 @@ function NewsPage() {
           onClick={() => setCreateDialog(true)}
         />
       </Box>
-      <Table columns={columns} data={data} remove={deleteNews} />
+      <Table
+        columns={columns}
+        data={data}
+        remove={deleteNews}
+        edit={(id) => {
+          setEditId(id);
+          setEditDialog(true);
+        }}
+      />
       <AddNewsModal
         onClose={() => setCreateDialog(false)}
         open={createDialog}
         afterSubmit={() => console.log("ok")}
+      />
+      <EditNewsModal
+        onClose={() => {
+          setEditDialog(false);
+        }}
+        open={editDialog}
+        initialData={data?.find(({ _id }) => _id === editId)}
+        afterSubmit={() => console.log("edit")}
       />
     </Box>
   );

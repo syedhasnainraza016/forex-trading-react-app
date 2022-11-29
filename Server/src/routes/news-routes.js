@@ -6,6 +6,7 @@ const NewsController = require("../controllers/news-controller");
 router.get("/all", NewsController.getallNews);
 router.post("/create", NewsController.addNews);
 router.post("/delete", NewsController.deleteNews);
+router.post(`/edit/:id`, NewsController.editNews);
 router.get("/predict", NewsController.predictNews);
 
 module.exports = router;

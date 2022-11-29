@@ -10,6 +10,9 @@ class Routes {
   deleteCourse(id) {
     return axios.post(`/course/delete`, id);
   }
+  editCourse(id, data) {
+    return axios.post(`/course/edit/${id}`, data);
+  }
   //buyer
   buyCourse(data) {
     return axios.post(`/course/buy-course`, data);

@@ -83,7 +83,7 @@ function SignIn() {
           showConfirmButton: false,
           timer: 3500,
         });
-        Navigate("/admin/news");
+        Navigate("/admin/article");
       } else {
         Swal.fire({
           position: "center",

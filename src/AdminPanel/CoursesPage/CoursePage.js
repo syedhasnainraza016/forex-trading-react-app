@@ -54,7 +54,7 @@ function CoursePage() {
 
   const deleteCourse = (id) => {
     CourseAPI.deleteCourse({ id: id }).then(() => {
-      CourseAPI.allCourse().then((res) => setData(res.data.data));
+      CourseAPI.allCourse().then((res) => setData(res?.data.data));
     });
   };
   return (

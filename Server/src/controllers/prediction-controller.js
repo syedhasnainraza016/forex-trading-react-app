@@ -59,7 +59,6 @@ const deleteArticle = async (req, res, next) => {
     }
   }
 };
-
 const editArticle = async (req, res) => {
   if (!req.body) {
     return res.status(400).send({

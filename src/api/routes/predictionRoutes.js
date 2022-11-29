@@ -10,6 +10,9 @@ class Routes {
   deleteArticle(id) {
     return axios.post(`/article/delete`, id);
   }
+  editArticle(id, data) {
+    return axios.post(`/article/edit/${id}`, data);
+  }
   articlePrediction() {
     return axios.get(`/article/predict`);
   }

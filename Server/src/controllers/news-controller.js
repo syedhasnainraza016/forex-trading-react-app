@@ -66,6 +66,28 @@ const deleteNews = async (req, res, next) => {
     }
   }
 };
+const editNews = async (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Data to update can not be empty!",
+    });
+  }
+  const id = req.params.id;
+  News.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update News with id=${id}. Maybe News was not found!`,
+        });
+      } else res.send({ message: "News was updated successfully." });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating News with id=" + id,
+      });
+    });
+};
+
 const predictNews = async (req, res, next) => {
   try {
     const configuration = new Configuration({
@@ -110,4 +132,5 @@ module.exports = {
   getallNews,
   deleteNews,
   predictNews,
+  editNews,
 };
